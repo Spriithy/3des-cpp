@@ -36,8 +36,22 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    if (options.command == HELP) {
-        std::cout << "usage()" << std::endl;
+    switch (options.command) {
+        case HELP:
+            // show help message
+            break;
+        case KEY_GEN:
+            // generate key
+            break;
+        case CYPHER:
+            // cypher input
+            break;
+        case DECYPHER:
+            // decypher input
+            break;
+        case NONE:
+        default:
+            break;
     }
 
     return EXIT_SUCCESS;
