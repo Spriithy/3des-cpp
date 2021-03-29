@@ -78,7 +78,24 @@ Sequence Sequence::operator*(Sequence &t_seq) {
     if (size() != t_seq.size()) {
         return res;
     }
-
-    res = to_bits() ^ t_seq.to_bits();
+    for (auto i = 0; i < t_seq.size(); ++i) {
+        res[i] = m_bits[i] ^ t_seq[i];
+    }
     return res;
+}
+
+Sequence Sequence::permutation(std::vector<int> &t_permutor) {
+    Sequence perm(t_permutor.size());
+    for (auto i = 0; i < t_permutor.size(); ++i) {
+        perm[i] = m_bits[t_permutor[i]];
+    }
+    return perm;
+}
+
+Sequence Sequence::subsequence(int begin, int end) {
+    Sequence seq(end - begin);
+    for (auto i = 0; i < seq.size(); ++i) {
+        seq[i] = m_bits[begin + i];
+    }
+    return seq;
 }

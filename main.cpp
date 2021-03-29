@@ -41,6 +41,7 @@ int main(int argc, char *argv[]) {
     Sequence seq(10);
     seq.print();
     std::cout << seq[1] << std::endl;
+    seq.subsequence(1, 5).print();
     seq = 0b10;
     seq.print();
     Sequence seq2(10);
