@@ -1,6 +1,8 @@
+#include "3des/Sequence.h"
 #include "cli/Parser.h"
 #include <iostream>
 
+//
 // CLI args
 // --------
 //
@@ -35,6 +37,12 @@ int main(int argc, char *argv[]) {
     if (options.error) {
         return EXIT_FAILURE;
     }
+
+    Sequence seq(10);
+    seq.print();
+    std::cout << seq[1] << std::endl;
+    seq = 0b1110110110;
+    seq.print();
 
     switch (options.command) {
         case HELP:
