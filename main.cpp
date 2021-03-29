@@ -41,8 +41,11 @@ int main(int argc, char *argv[]) {
     Sequence seq(10);
     seq.print();
     std::cout << seq[1] << std::endl;
-    seq = 0b1110110110;
+    seq = 0b10;
     seq.print();
+    Sequence seq2(10);
+    seq2 = 0b01;
+    (seq * seq2).print();
 
     switch (options.command) {
         case HELP:

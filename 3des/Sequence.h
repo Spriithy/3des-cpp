@@ -19,7 +19,9 @@ public:
     explicit Sequence(const std::list<Sequence> &t_seq);
     int operator()(int i) const;
     int &operator[](int i);
-    Sequence &operator=(int seq);
+    uint64_t to_bits();
+    Sequence &operator=(uint64_t seq);
+    Sequence operator*(Sequence &t_seq);
     int size();
     void shift(int n);
     void print();

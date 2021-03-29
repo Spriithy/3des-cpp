@@ -51,15 +51,34 @@ void Sequence::shift(int n) {
 }
 
 void Sequence::print() {
-    for (auto val : m_bits) {
-        std::cout << val;
+    int n = size();
+    for (auto i = 0; i < n; ++i) {
+        std::cout << m_bits[n - i - 1];
     }
     std::cout << std::endl;
 }
 
-Sequence &Sequence::operator=(int seq) {
-    for (auto i = 0; i < m_bits.size(); ++i) {
+Sequence &Sequence::operator=(uint64_t seq) {
+    for (auto i = 0; i < size(); ++i) {
         m_bits[i] = (seq >> i) & 1;
     }
     return *this;
+}
+
+uint64_t Sequence::to_bits() {
+    uint64_t bits(0);
+    for (int i = 0; i < size(); ++i) {
+        bits |= m_bits[i] << i;
+    }
+    return bits;
+}
+
+Sequence Sequence::operator*(Sequence &t_seq) {
+    Sequence res(size());
+    if (size() != t_seq.size()) {
+        return res;
+    }
+
+    res = to_bits() ^ t_seq.to_bits();
+    return res;
 }
