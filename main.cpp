@@ -1,4 +1,5 @@
 #include "3des/Sequence.h"
+#include "3des/SequenceD.h"
 #include "cli/Parser.h"
 #include <iostream>
 
@@ -45,8 +46,13 @@ int main(int argc, char *argv[]) {
     seq = 0b10;
     seq.print();
     Sequence seq2(10);
-    seq2 = 0b01;
+    seq2 = 0b11;
     (seq * seq2).print();
+
+    SequenceD<64> sqd{};
+
+    sqd.left().print();
+    std::cout << sqd << std::endl;
 
     switch (options.command) {
         case HELP:
