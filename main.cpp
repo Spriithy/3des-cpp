@@ -51,7 +51,9 @@ int main(int argc, char *argv[]) {
 
     SequenceD<64> sqd{};
 
-    sqd.left().print();
+    std::cout << sqd.to_string() << std::endl;
+
+    std::cin >> sqd;
     std::cout << sqd << std::endl;
 
     switch (options.command) {

@@ -51,7 +51,8 @@ void Sequence::shift(int n) {
 }
 
 void Sequence::print() {
-    int n = size();
+    // avoid calling size() because SequenceD<N> overrides it, it will fail.
+    int n = m_bits.size();
     for (auto i = 0; i < n; ++i) {
         std::cout << m_bits[n - i - 1];
     }
@@ -98,4 +99,21 @@ Sequence Sequence::subsequence(int begin, int end) {
         seq[i] = m_bits[begin + i];
     }
     return seq;
+}
+
+std::string Sequence::to_string() {
+    auto n = size();
+    std::string str;
+    Sequence seq;
+    // process full bytes
+    for (int i = 0; i < n / 8; ++i) {
+        seq = subsequence(i * 8, (i + 1) * 8);
+        str += (unsigned char) seq.to_bits();
+    }
+    // 0-pad remaining bits
+    if (n % 8 > 0) {
+        seq = subsequence(n - n % 8, n);
+        str += (unsigned char) seq.to_bits();
+    }
+    return str;
 }

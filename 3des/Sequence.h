@@ -23,11 +23,13 @@ public:
     Sequence &operator=(uint64_t seq);
     Sequence operator*(Sequence &t_seq);
     uint64_t to_bits();
-    virtual int size();
+    int size();
     virtual void shift(int n);
     Sequence permutation(std::vector<int> &t_permutor);
     Sequence subsequence(int begin, int end);
     void print();
+
+    std::string to_string();
 };
 
 
