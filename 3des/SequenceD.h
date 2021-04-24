@@ -42,11 +42,11 @@ public:
     }
 };
 
-Sequence read_seq32(std::istream &in) {
+Sequence read_seq_from_chars(std::istream &in, int n) {
     std::list<Sequence> seqs{};
     Sequence new_seq(8);
     uint8_t c;
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < n; ++i) {
         in >> c;
         new_seq = c;
         seqs.push_back(new_seq);
@@ -60,9 +60,35 @@ std::ostream &operator<<(std::ostream &os, SequenceD<64> &t_seq) {
 }
 
 std::istream &operator>>(std::istream &in, SequenceD<64> &t_seq) {
-    t_seq.left() = read_seq32(in);
-    t_seq.right() = read_seq32(in);
+    t_seq.left() = read_seq_from_chars(in, 4);
+    t_seq.right() = read_seq_from_chars(in, 4);
     return in;
+}
+
+void write_seq_bits(std::ostream &os, Sequence &t_seq) {
+    for (auto i = 0; i < t_seq.size(); ++i) {
+        os << (t_seq[i] ? '1' : '0');
+    }
+}
+
+void write(std::ostream &os, SequenceD<64> &t_seq) {
+    write_seq_bits(os, t_seq.left());
+    write_seq_bits(os, t_seq.right());
+}
+
+Sequence read_seq_from_bits(std::istream &in, int n) {
+    Sequence seq(n);
+    uint8_t c;
+    for (auto i = 0; i < n; ++i) {
+        in >> c;
+        seq[i] = c == '1' ? 1 : 0;
+    }
+    return seq;
+}
+
+void read(std::istream &in, SequenceD<64> &t_seq) {
+    t_seq.left() = read_seq_from_bits(in, 32);
+    t_seq.right() = read_seq_from_bits(in, 32);
 }
 
 #endif//INC_3DES_CPP_SEQUENCED_H
