@@ -5,7 +5,6 @@
 #include "KeyGen.h"
 #include "Permutation.h"
 
-
 KeyGen::KeyGen(SequenceD<64> &key) {
     m_rolling = Permutation<64, 56>{}(key, PC1);
 }

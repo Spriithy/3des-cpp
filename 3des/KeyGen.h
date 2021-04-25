@@ -8,9 +8,8 @@
 #include "SequenceD.h"
 #include <vector>
 
-
 // Permuted choice 1
-const std::vector<int> PC1{
+static const std::vector<int> PC1{
         // clang-format off
         59, 49, 41, 33, 25, 17, 9,
         1, 58, 50, 42, 34, 26, 18,
@@ -24,7 +23,7 @@ const std::vector<int> PC1{
 };
 
 // Permuted choice 2
-const std::vector<int> PC2{
+static const std::vector<int> PC2{
         // clang-format off
         14, 17, 11, 24, 1, 5, 3, 28,
         15, 6, 21, 10, 23, 19, 12, 4,
@@ -36,12 +35,11 @@ const std::vector<int> PC2{
 };
 
 // Scheduled left shifts
-const std::vector<int> SCHEDULED_LEFT_SHIFTS{
+static const std::vector<int> SCHEDULED_LEFT_SHIFTS{
         // clang-format off
         1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1
         // clang-format on
 };
-
 
 class KeyGen {
 protected:
