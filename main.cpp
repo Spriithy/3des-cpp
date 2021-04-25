@@ -1,3 +1,4 @@
+#include "3des/KeyGen.h"
 #include "3des/Sequence.h"
 #include "3des/SequenceD.h"
 #include "cli/Parser.h"
@@ -78,6 +79,12 @@ int main(int argc, char *argv[]) {
     print(seqd.left());
     print(seqd.right());
     std::cout << seqd.as_char_string() << std::endl;
+
+    SequenceD<64> kseq{};
+    KeyGen kg(kseq);
+    for (auto i : SCHEDULED_LEFT_SHIFTS) {
+        std::cout << kg.next().as_bit_string() << std::endl;
+    }
 
     switch (options.command) {
         case HELP:
