@@ -65,6 +65,17 @@ int main(int argc, char *argv[]) {
     std::cout << seqd.as_bit_string() << std::endl;
     std::cout << seqd.as_char_string() << std::endl;
 
+    // Test read from bits
+    in = std::istringstream(seqd.as_bit_string());
+    read(in, seqd);
+    std::cout << seqd.as_bit_string() << std::endl;
+    std::cout << seqd.as_char_string() << std::endl;
+
+    // Test read from chars
+    std::istringstream("abcdcdab") >> seqd;
+    std::cout << seqd.as_bit_string() << std::endl;
+    std::cout << seqd.as_char_string() << std::endl;
+
     switch (options.command) {
         case HELP:
             // show help message

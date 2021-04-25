@@ -53,7 +53,7 @@ Sequence read_seq_from_chars(std::istream &in, int n) {
     for (auto i = 0; i < n; ++i) {
         in >> c;
         new_seq = c;
-        seqs.push_back(new_seq);
+        seqs.push_front(new_seq);
     }
     return Sequence(seqs);
 }
@@ -84,9 +84,8 @@ Sequence read_seq_from_bits(std::istream &in, int n) {
 }
 
 void read(std::istream &in, SequenceD<64> &t_seq) {
-    // We need to read the right sequence first because of endianness
-    t_seq.right() = read_seq_from_bits(in, 32);
     t_seq.left() = read_seq_from_bits(in, 32);
+    t_seq.right() = read_seq_from_bits(in, 32);
 }
 
 template<class seqType>
