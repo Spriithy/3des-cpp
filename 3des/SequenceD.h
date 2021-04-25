@@ -21,8 +21,8 @@ public:
     Sequence &left() { return *this; }
     Sequence &right() { return m_other; }
 
-    int &operator[](int i) override { return i < N / 2 ? left()[i] : right()[i - N / 2]; }
-    int operator()(int i) { return i < N / 2 ? left()(i) : right()(i - N / 2); }
+    int &operator[](int i) override { return i < N / 2 ? right()[i] : left()[i - N / 2]; }
+    int operator()(int i) { return i < N / 2 ? right()(i) : left()(i - N / 2); }
 
     void shift(int n) override {
         left().shift(n);
@@ -90,7 +90,11 @@ void read(std::istream &in, SequenceD<64> &t_seq) {
 
 template<class seqType>
 void print(seqType &t_seq) {
-    std::cout << t_seq.as_bit_string() << std::endl;
+    auto n = t_seq.size();
+    for (auto i = 0; i < n; ++i) {
+        std::cout << t_seq(n - i - 1) ? '1' : '0';
+    }
+    std::cout << std::endl;
 }
 
 #endif//INC_3DES_CPP_SEQUENCED_H
