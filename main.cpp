@@ -74,6 +74,9 @@ int main(int argc, char *argv[]) {
     // Test read from chars
     std::istringstream("abcdcdab") >> seqd;
     std::cout << seqd.as_bit_string() << std::endl;
+    print(seqd);
+    print(seqd.left());
+    print(seqd.right());
     std::cout << seqd.as_char_string() << std::endl;
 
     switch (options.command) {

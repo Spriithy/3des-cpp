@@ -90,9 +90,7 @@ void read(std::istream &in, SequenceD<64> &t_seq) {
 
 template<class seqType>
 void print(seqType &t_seq) {
-    for (auto i = 0; i < t_seq.size(); ++i) {
-        std::cout << t_seq(t_seq.size() - i - 1);
-    }
+    std::cout << t_seq.as_bit_string() << std::endl;
 }
 
 #endif//INC_3DES_CPP_SEQUENCED_H
