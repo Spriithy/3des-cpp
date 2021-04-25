@@ -2,6 +2,7 @@
 #include "3des/SequenceD.h"
 #include "cli/Parser.h"
 #include <iostream>
+#include <sstream>
 
 //
 // CLI args
@@ -39,22 +40,30 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    Sequence seq(10);
-    seq.print();
-    std::cout << seq[1] << std::endl;
-    seq.subsequence(1, 5).print();
-    seq = 0b10;
-    seq.print();
-    Sequence seq2(10);
-    seq2 = 0b11;
-    (seq * seq2).print();
+    Sequence seq(8);
+    seq = 0b01111000;
+    std::cout << seq.as_bit_string() << std::endl;
+    std::cout << seq.as_char_string() << std::endl;
+    std::istringstream in(seq.as_bit_string());
+    seq = read_seq_from_bits(in, 8);
+    std::cout << seq.as_bit_string() << std::endl;
+    std::cout << seq.as_char_string() << std::endl;
 
-    SequenceD<64> sqd{};
+    Sequence seq2(32);
+    seq2 = 0b01100001011000100110001101100100;
+    std::cout << seq2.as_bit_string() << std::endl;
+    std::cout << seq2.as_char_string() << std::endl;
+    in = std::istringstream(seq2.as_bit_string());
+    seq2 = read_seq_from_bits(in, 32);
+    std::cout << seq2.as_bit_string() << std::endl;
+    std::cout << seq2.as_char_string() << std::endl;
 
-    std::cout << sqd.to_string() << std::endl;
-
-    std::cin >> sqd;
-    std::cout << sqd << std::endl;
+    SequenceD<64> seqd{};
+    seqd.left() = 0b01100001011000100110001101100100;
+    seqd.right() = 0b01100001011000100110001101100100;
+    seqd.right().shift(16);
+    std::cout << seqd.as_bit_string() << std::endl;
+    std::cout << seqd.as_char_string() << std::endl;
 
     switch (options.command) {
         case HELP:

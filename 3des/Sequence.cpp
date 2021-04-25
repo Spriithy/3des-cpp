@@ -10,9 +10,8 @@
 Sequence::Sequence(int t_size) {
     m_bits = std::deque<int>(t_size);
 
-    // This lambda function is a courtesy of :
-    // https://www.fluentcpp.com/2019/05/24/how-to-fill-a-cpp-collection-with-random-values/
-    auto randBetween = [](int low, int high) {
+    // Lambda function to generate random bits
+    auto rand_between = [](int low, int high) {
         auto wrapped = [distribution_ = std::uniform_int_distribution<int>(low, high),
                         random_engine_ = std::mt19937{std::random_device{}()}]() mutable {
             return distribution_(random_engine_);
@@ -20,7 +19,7 @@ Sequence::Sequence(int t_size) {
         return wrapped;
     };
 
-    std::ranges::generate(m_bits, randBetween(0, 1));
+    std::ranges::generate(m_bits, rand_between(0, 1));
 }
 
 Sequence::Sequence(const std::list<Sequence> &t_seq) {
@@ -50,17 +49,9 @@ void Sequence::shift(int n) {
     }
 }
 
-void Sequence::print() {
-    // avoid calling size() because SequenceD<N> overrides it, it will fail.
-    int n = m_bits.size();
-    for (auto i = 0; i < n; ++i) {
-        std::cout << m_bits[n - i - 1];
-    }
-    std::cout << std::endl;
-}
-
 Sequence &Sequence::operator=(uint64_t seq) {
-    for (auto i = 0; i < size(); ++i) {
+    auto n = size();
+    for (auto i = 0; i < n; ++i) {
         m_bits[i] = (seq >> i) & 1;
     }
     return *this;
@@ -68,7 +59,7 @@ Sequence &Sequence::operator=(uint64_t seq) {
 
 uint64_t Sequence::to_bits() {
     uint64_t bits(0);
-    for (int i = 0; i < size(); ++i) {
+    for (auto i = 0; i < size(); ++i) {
         bits |= m_bits[i] << i;
     }
     return bits;
@@ -101,19 +92,28 @@ Sequence Sequence::subsequence(int begin, int end) {
     return seq;
 }
 
-std::string Sequence::to_string() {
+std::string Sequence::as_char_string() {
     auto n = size();
     std::string str;
     Sequence seq;
     // process full bytes
-    for (int i = 0; i < n / 8; ++i) {
-        seq = subsequence(i * 8, (i + 1) * 8);
+    for (auto i = 0; i < n / 8; ++i) {
+        seq = subsequence((n - n % 8) - (i + 1) * 8, (n - n % 8) - i * 8);
         str += (unsigned char) seq.to_bits();
     }
     // 0-pad remaining bits
     if (n % 8 > 0) {
-        seq = subsequence(n - n % 8, n);
+        seq = subsequence(0, n % 8);
         str += (unsigned char) seq.to_bits();
+    }
+    return str;
+}
+
+std::string Sequence::as_bit_string() {
+    std::string str;
+    auto n = size();
+    for (auto i = 0; i < n; ++i) {
+        str += m_bits[n - i - 1] ? '1' : '0';
     }
     return str;
 }

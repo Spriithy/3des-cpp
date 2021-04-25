@@ -27,9 +27,9 @@ public:
     virtual void shift(int n);
     Sequence permutation(std::vector<int> &t_permutor);
     Sequence subsequence(int begin, int end);
-    void print();
 
-    std::string to_string();
+    std::string as_char_string();
+    std::string as_bit_string();
 };
 
 
