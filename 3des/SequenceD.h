@@ -95,14 +95,4 @@ void print(seqType &t_seq) {
     }
 }
 
-template<class seqType>
-std::string to_bits_string(seqType &t_seq) {
-    std::string str;
-    auto n = t_seq.size();
-    for (auto i = 0; i < n; ++i) {
-        str += t_seq(n - i - 1) ? '1' : '0';
-    }
-    return str;
-}
-
 #endif//INC_3DES_CPP_SEQUENCED_H
