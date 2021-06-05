@@ -29,7 +29,7 @@ public:
         right().shift(n);
     }
 
-    SequenceD<N> operator*(SequenceD<N> &t_seq) {
+    SequenceD<N> operator*(SequenceD<N> t_seq) {
         auto new_left = left() * t_seq.left();
         auto new_right = right() * t_seq.right();
         return SequenceD<N>(new_left, new_right);

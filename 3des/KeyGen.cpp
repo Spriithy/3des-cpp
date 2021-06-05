@@ -14,6 +14,6 @@ SequenceD<48> KeyGen::next() {
     if (round > 15) {
         return {};
     }
-    m_rolling.shift(SCHEDULED_LEFT_SHIFTS[round]);
+    m_rolling.shift(SCHEDULED_LEFT_SHIFTS[round++]);
     return Permutation<56, 48>{}(m_rolling, PC2);
 }
