@@ -7,4 +7,4 @@ add_executable(3des_cpp
         main.cpp
         cli/Parser.cpp cli/Parser.h
         3des/Sequence.cpp 3des/Sequence.h
-        3des/SequenceD.h 3des/Permutation.h 3des/KeyGen.cpp 3des/KeyGen.h 3des/SequenceD.cpp)
+        3des/SequenceD.h 3des/Permutation.h 3des/KeyGen.cpp 3des/KeyGen.h 3des/SequenceD.cpp 3des/Sbox.cpp 3des/Sbox.h)

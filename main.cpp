@@ -1,4 +1,5 @@
 #include "3des/KeyGen.h"
+#include "3des/Sbox.h"
 #include "3des/Sequence.h"
 #include "3des/SequenceD.h"
 #include "cli/Parser.h"
@@ -85,6 +86,10 @@ int main(int argc, char *argv[]) {
     for (auto i : SCHEDULED_LEFT_SHIFTS) {
         std::cout << kg.next().as_bit_string() << std::endl;
     }
+
+    Sbox sbox(SBOX_MATRIX_1);
+    seq = 0b100011;
+    std::cout << sbox(seq).to_bits() << std::endl;
 
     switch (options.command) {
         case HELP:
