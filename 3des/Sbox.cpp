@@ -3,7 +3,6 @@
 //
 
 #include "Sbox.h"
-#include <iostream>
 
 Sbox::Sbox(const int sbox_matrix[4][16]) {
     m_tab = new Sequence *[4];
@@ -15,9 +14,12 @@ Sbox::Sbox(const int sbox_matrix[4][16]) {
     }
 }
 
+Sbox::Sbox(const Sbox &sbox) {
+    m_tab = sbox.m_tab;
+}
 
 Sbox::~Sbox() {
-    for (auto i = 0; i < 16; ++i) {
+    for (auto i = 0; i < 4; ++i) {
         delete[] m_tab[i];
     }
     delete[] m_tab;

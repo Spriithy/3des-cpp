@@ -63,10 +63,10 @@ private:
     Sequence **m_tab;
 
 public:
-    Sbox(const int sbox_matrix[4][16]);
-    Sbox(const Sbox &sbox) = default;
+    explicit Sbox(const int sbox_matrix[4][16]);
+    Sbox(const Sbox &sbox);
     ~Sbox();
-    Sbox &operator=(Sbox sbox);
+    Sbox &operator=(const Sbox &sbox) = default;
     Sequence operator()(const Sequence &seq);
 };
 

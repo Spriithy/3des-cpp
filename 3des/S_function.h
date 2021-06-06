@@ -15,6 +15,7 @@ public:
     explicit S_function(const int sboxes[8][4][16]);
     ~S_function();
     S_function(const S_function &sFunction) = default;
+    S_function &operator=(const S_function &sFunction) = default;
     Sequence operator()(Sequence &seq);
 };
 

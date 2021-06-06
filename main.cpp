@@ -1,3 +1,4 @@
+#include "3des/DES.h"
 #include "3des/KeyGen.h"
 #include "3des/S_function.h"
 #include "3des/Sbox.h"
@@ -37,61 +38,22 @@
 
 int main(int argc, char *argv[]) {
     Parser parser(argc, argv);
-    ParsedOptions options = parser.parse();
+    auto options = parser.parse();
 
     if (options.error) {
         return EXIT_FAILURE;
     }
 
-    Sequence seq(8);
-    seq = 0b01111000;
-    std::cout << seq.as_bit_string() << std::endl;
-    std::cout << seq.as_char_string() << std::endl;
-    std::istringstream in(seq.as_bit_string());
-    seq = read_seq_from_bits(in, 8);
-    std::cout << seq.as_bit_string() << std::endl;
-    std::cout << seq.as_char_string() << std::endl;
+    SequenceD<64> key{};
+    std::cout << "  Original key: " << key.as_bit_string() << std::endl;
 
-    Sequence seq2(32);
-    seq2 = 0b01100001011000100110001101100100;
-    std::cout << seq2.as_bit_string() << std::endl;
-    std::cout << seq2.as_char_string() << std::endl;
-    in = std::istringstream(seq2.as_bit_string());
-    seq2 = read_seq_from_bits(in, 32);
-    std::cout << seq2.as_bit_string() << std::endl;
-    std::cout << seq2.as_char_string() << std::endl;
+    DES des(key);
+    auto desKey = des(key);
+    std::cout << "  Cyphered key: " << desKey.as_bit_string() << std::endl;
 
-    SequenceD<64> seqd{};
-    seqd.left() = 0b01100001011000100110001101100100;
-    seqd.right() = 0b01100001011000100110001101100100;
-    seqd.right().shift(16);
-    std::cout << seqd.as_bit_string() << std::endl;
-    std::cout << seqd.as_char_string() << std::endl;
-
-    // Test read from bits
-    in = std::istringstream(seqd.as_bit_string());
-    read(in, seqd);
-    std::cout << seqd.as_bit_string() << std::endl;
-    std::cout << seqd.as_char_string() << std::endl;
-
-    // Test read from chars
-    std::istringstream("abcdcdab") >> seqd;
-    std::cout << seqd.as_bit_string() << std::endl;
-    print(seqd);
-    print(seqd.left());
-    print(seqd.right());
-    std::cout << seqd.as_char_string() << std::endl;
-
-    SequenceD<64> kseq{};
-    KeyGen kg(kseq);
-    for (auto i : SCHEDULED_LEFT_SHIFTS) {
-        std::cout << kg.next().as_bit_string() << std::endl;
-    }
-
-    Sbox sbox(SBOX_MATRICES[0]);
-    seq = 0b100011;
-    std::cout << sbox(seq).to_bits() << std::endl;
-
+    DESinv desInv(key);
+    auto desInvKey = desInv(desKey);
+    std::cout << "Decyphered key: " << desInvKey.as_bit_string() << std::endl;
 
     switch (options.command) {
         case HELP:

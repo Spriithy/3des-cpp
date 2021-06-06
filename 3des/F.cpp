@@ -11,7 +11,6 @@ Sequence F::operator()(Sequence &right) {
     if (round > 15) {
         return Sequence();
     }
-    ++round;
 
     // Adapt Sequence to SequenceD<32>
     auto subLeft = right.subsequence(0, 16);
@@ -30,12 +29,13 @@ Sequence F::operator()(Sequence &right) {
 
     // Pass S-Box resulting sequence to permutation P
     auto sboxLeft = sboxResult.subsequence(0, 16);
-    auto sboxRight = sboxResult.subsequence(16, 0);
+    auto sboxRight = sboxResult.subsequence(16, 32);
     SequenceD<32> sboxResultD(sboxLeft, sboxRight);
 
     // Apply permutation P
     auto newRight = Permutation<32, 32>{}(sboxResultD, PERMUTATION_FUNCTION);
 
+    ++round;
     return Sequence(std::list{newRight.left(), newRight.right()});
 }
 
@@ -55,7 +55,6 @@ Sequence Finv::operator()(Sequence &right) {
     if (round > 15) {
         return Sequence();
     }
-    ++round;
 
     // Adapt Sequence to SequenceD<32>
     auto subLeft = right.subsequence(0, 16);
@@ -74,11 +73,12 @@ Sequence Finv::operator()(Sequence &right) {
 
     // Pass S-Box resulting sequence to permutation P
     auto sboxLeft = sboxResult.subsequence(0, 16);
-    auto sboxRight = sboxResult.subsequence(16, 0);
+    auto sboxRight = sboxResult.subsequence(16, 32);
     SequenceD<32> sboxResultD(sboxLeft, sboxRight);
 
     // Apply permutation P
     auto newRight = Permutation<32, 32>{}(sboxResultD, PERMUTATION_FUNCTION);
 
+    ++round;
     return Sequence(std::list{newRight.left(), newRight.right()});
 }

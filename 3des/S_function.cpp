@@ -23,7 +23,7 @@ S_function::~S_function() {
 Sequence S_function::operator()(Sequence &seq) {
     std::vector<Sequence> seqs(8);
     for (auto i = 0; i < 8; ++i) {
-        Sequence subseq = seq.subsequence(i * 8, (i + 1) * 8);
+        Sequence subseq = seq.subsequence(i * 6, (i + 1) * 6);
         seqs[i] = (*m_sboxes[i]) (subseq);
     }
 

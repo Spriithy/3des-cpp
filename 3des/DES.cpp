@@ -3,10 +3,12 @@
 //
 
 #include "DES.h"
+#include "Permutation.h"
 
 SequenceD<64> DES::operator()(SequenceD<64> seq) {
-    auto left = seq.left();
-    auto right = seq.right();
+    auto pSeq = Permutation<64, 64>{}(seq, INITIAL_PERMUTATION);
+    auto left = pSeq.left();
+    auto right = pSeq.right();
 
     for (auto i = 0; i < 16; ++i) {
         auto tmp = right;
@@ -14,12 +16,15 @@ SequenceD<64> DES::operator()(SequenceD<64> seq) {
         left = tmp;
     }
 
-    return SequenceD<64>(left, right);
+    pSeq.left() = right;
+    pSeq.right() = left;
+    return Permutation<64, 64>{}(pSeq, INITIAL_PERMUTATION_REVERSE);
 }
 
 SequenceD<64> DESinv::operator()(SequenceD<64> seq) {
-    auto left = seq.left();
-    auto right = seq.right();
+    auto pSeq = Permutation<64, 64>{}(seq, INITIAL_PERMUTATION);
+    auto left = pSeq.left();
+    auto right = pSeq.right();
 
     for (auto i = 0; i < 16; ++i) {
         auto tmp = right;
@@ -27,5 +32,7 @@ SequenceD<64> DESinv::operator()(SequenceD<64> seq) {
         left = tmp;
     }
 
-    return SequenceD<64>(left, right);
+    pSeq.left() = right;
+    pSeq.right() = left;
+    return Permutation<64, 64>{}(pSeq, INITIAL_PERMUTATION_REVERSE);
 }
