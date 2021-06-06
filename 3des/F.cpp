@@ -42,6 +42,8 @@ Sequence F::operator()(Sequence &right) {
 // Finv
 
 Finv::Finv(SequenceD<64> &key) : m_keyGen(key), m_sFunction(SBOX_MATRICES), m_keys(16) {
+    // We need to lookup all keys before we start the Finv procedure because we
+    // need to start with the last generated key
     for (auto i = 0; i < 16; ++i) {
         m_keys[16 - i - 1] = m_keyGen.next();
     }
