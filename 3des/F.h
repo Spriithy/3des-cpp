@@ -5,9 +5,10 @@
 #ifndef INC_3DES_CPP_F_H
 #define INC_3DES_CPP_F_H
 
-
 #include "KeyGen.h"
 #include "S_function.h"
+
+
 class F {
 private:
     KeyGen m_keyGen;
@@ -18,5 +19,16 @@ public:
     Sequence operator()(Sequence &seq);
 };
 
+
+class Finv {
+private:
+    KeyGen m_keyGen;
+    S_function m_sFunction;
+    std::vector<SequenceD<48>> m_keys;
+
+public:
+    explicit Finv(SequenceD<64> &key);
+    Sequence operator()(Sequence &seq);
+};
 
 #endif//INC_3DES_CPP_F_H
