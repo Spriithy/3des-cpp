@@ -42,9 +42,12 @@ int main(int argc, char *argv[]) {
 
     switch (options.command) {
         case HELP:
-            std::cout << "Usage: 3des [--key-gen] [-i <fichier>] [-c <fichier>] [-d <fichier>] [-O <fichier>]" << std::endl;
+            std::cout << "Usage:" << std::endl;
+            std::cout << std::endl;
+            std::cout << "       3des [--key-gen] [-i <fichier>] [-c <fichier>] [-d <fichier>] [-O <fichier>]" << std::endl;
             std::cout << std::endl;
             std::cout << "Arguments:" << std::endl;
+            std::cout << std::endl;
             std::cout << "  --key-gen" << std::endl;
             std::cout << "       Permet de generer une nouvelle clef de chiffrement et l'affiche sur la sortie standard." << std::endl;
             std::cout << std::endl;
@@ -62,6 +65,9 @@ int main(int argc, char *argv[]) {
             std::cout << "  -O <fichier>" << std::endl;
             std::cout << "      Permet d'ecrire le resultat d'une sous commande vers un nouveau fichier plutot que" << std::endl;
             std::cout << "      dans la sortie standard." << std::endl;
+            std::cout << std::endl;
+            std::cout << "  -h / --help" << std::endl;
+            std::cout << "      Affiche ce message d'aide et se termine." << std::endl;
             std::cout << std::endl;
             std::cout << "Exemple:" << std::endl;
             std::cout << std::endl;
