@@ -1,7 +1,3 @@
-//
-// Created by theophile on 03/27/2021.
-//
-
 #ifndef INC_3DES_CPP_PARSER_H
 #define INC_3DES_CPP_PARSER_H
 
@@ -27,7 +23,7 @@ enum Flag {
     // -i <file>
     INPUT_KEY,
 
-    // -o <file>
+    // -O <file>
     OUTPUT_FILE,
 };
 

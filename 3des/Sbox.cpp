@@ -1,8 +1,5 @@
-//
-// Created by theophile on 06/05/2021.
-//
-
 #include "Sbox.h"
+
 
 Sbox::Sbox(const int sbox_matrix[4][16]) {
     m_tab = new Sequence *[4];

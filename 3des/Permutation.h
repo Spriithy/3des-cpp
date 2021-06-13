@@ -1,7 +1,3 @@
-//
-// Created by theophile on 04/25/2021.
-//
-
 #ifndef INC_3DES_CPP_PERMUTATION_H
 #define INC_3DES_CPP_PERMUTATION_H
 

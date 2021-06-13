@@ -1,36 +1,31 @@
-#include "3des/DES.h"
+#include "3des/Crypt.h"
 #include "3des/KeyGen.h"
-#include "3des/Permutation.h"
-#include "3des/S_function.h"
-#include "3des/Sbox.h"
-#include "3des/Sequence.h"
-#include "3des/SequenceD.h"
 #include "cli/Parser.h"
 #include <iostream>
-#include <sstream>
 
 //
 // CLI args
 // --------
 //
 // --key-gen
-//      Permet de générer une nouvelle clef de chiffrement et l'affiche sur la sortie standard.
+//      Permet de generer une nouvelle clef de chiffrement et l'affiche sur la sortie standard.
 //
-// -i <file>
-//      Permet de spécifier une clef utilisée pour le chiffrement ou le déchiffrement.
+// -i <fichier>
+//      Permet de specifier une clef utilisee pour le chiffrement ou le dechiffrement.
 //
-// -c <file>
-//      Permet de chiffrer un fichier à l'aide d'une clef (spécifiée par le flag -i).
-//      Si le fichier est omis, lecture depuis l'entrée standard. Par défaut, écrit
-//      le résultat dans la sortie standard.
+// -c <fichier>
+//      Permet de chiffrer un fichier a l'aide d'une clef (specifiee par le flag -i).
+//      Si le fichier est omis, lecture depuis l'entree standard. Par defaut, ecrit
+//      le resultat dans la sortie standard.
 //
-// -d <file>
-//      Permet de déchiffrer un fichier à l'aide d'une clef (spécifiée par le flag -i).
-//      Si le fichier est omis, lecture depuis l'entrée standard. Par défaut, écrit
-//      le résultat dans la sortie standard.
+// -d <fichier>
+//      Permet de dechiffrer un fichier a l'aide d'une clef (specifiee par le flag -i).
+//      Si le fichier est omis, lecture depuis l'entree standard. Par defaut, ecrit
+//      le resultat dans la sortie standard.
 //
-//  -o <file>
-//      Permet d'écrire le résultat d'une sous commande vers un nouveau fichier.
+//  -O <fichier>
+//      Permet d'ecrire le resultat d'une sous commande vers un nouveau fichier plutot que
+//      dans la sortie standard.
 //
 // Exemple:
 //
@@ -45,39 +40,61 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    Sequence l(32), r(32);
-    l = 0b10001111000011110000111100001111;
-    r = 0b11110000111100001111000011111000;
-
-    SequenceD<64> key{l, r};
-
-    SequenceD<64> text;
-    std::cin >> text;
-
-    std::cout << "   Original key: " << key << std::endl;
-    std::cout << "  Original text: " << text << std::endl;
-
-    DES des(key);
-    auto desText = des(text);
-    std::cout << "  Cyphered text: " << desText << std::endl;
-
-    DESinv desInv(key);
-    auto desInvText = desInv(desText);
-    std::cout << "Decyphered text: " << desInvText << std::endl;
-
     switch (options.command) {
         case HELP:
-            // show help message
+            std::cout << "Usage: 3des [--key-gen] [-i <fichier>] [-c <fichier>] [-d <fichier>] [-O <fichier>]" << std::endl;
+            std::cout << std::endl;
+            std::cout << "Arguments:" << std::endl;
+            std::cout << "  --key-gen" << std::endl;
+            std::cout << "       Permet de generer une nouvelle clef de chiffrement et l'affiche sur la sortie standard." << std::endl;
+            std::cout << std::endl;
+            std::cout << "  -i <fichier>" << std::endl;
+            std::cout << "       Permet de specifier une clef utilisee pour le chiffrement ou le dechiffrement." << std::endl;
+            std::cout << std::endl;
+            std::cout << "  -c <fichier>" << std::endl;
+            std::cout << "       Permet de chiffrer un fichier a l'aide d'une clef (specifiee par le flag -i)." << std::endl;
+            std::cout << "       Par defaut, ecrit le resultat dans la sortie standard." << std::endl;
+            std::cout << std::endl;
+            std::cout << "  -d <fichier>" << std::endl;
+            std::cout << "       Permet de dechiffrer un fichier a l'aide d'une clef (specifiee par le flag -i)." << std::endl;
+            std::cout << "       Par defaut, ecrit le resultat dans la sortie standard." << std::endl;
+            std::cout << std::endl;
+            std::cout << "  -O <fichier>" << std::endl;
+            std::cout << "      Permet d'ecrire le resultat d'une sous commande vers un nouveau fichier plutot que" << std::endl;
+            std::cout << "      dans la sortie standard." << std::endl;
+            std::cout << std::endl;
+            std::cout << "Exemple:" << std::endl;
+            std::cout << std::endl;
+            std::cout << "      ./3des -i ~/3des.key -c README.txt > README.3des" << std::endl;
+            std::cout << std::endl;
             break;
-        case KEY_GEN:
-            // generate key
-            break;
-        case CYPHER:
-            // cypher input
-            break;
-        case DECYPHER:
-            // decypher input
-            break;
+        case KEY_GEN: {
+            SequenceD<64> k1{}, k2{};
+            if (options.outputFile.empty()) {
+                write3DESKeys(std::cout, k1, k2);
+            } else {
+                write3DESKeys(options.outputFile, k1, k2);
+            }
+        } break;
+        case CYPHER: {
+            auto [k1, k2] = read3DESKeys(options.keyFile);
+            Crypt crypt(k1, k2);
+            if (options.outputFile.empty()) {
+                crypt(options.inputFile, std::cout);
+            } else {
+                crypt(options.inputFile, options.outputFile);
+            }
+        } break;
+        case DECYPHER: {
+            auto [k1, k2] = read3DESKeys(options.keyFile);
+            Decrypt decrypt(k1, k2);
+            if (options.outputFile.empty()) {
+                std::cout << std::ios::binary;
+                decrypt(options.inputFile, std::cout);
+            } else {
+                decrypt(options.inputFile, options.outputFile);
+            }
+        } break;
         case NONE:
         default:
             break;

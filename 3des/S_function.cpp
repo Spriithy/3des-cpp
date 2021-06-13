@@ -1,10 +1,7 @@
-//
-// Created by theophile on 06/05/2021.
-//
-
 #include "S_function.h"
 #include <list>
 #include <vector>
+
 
 S_function::S_function(const int sboxes[8][4][16]) {
     // Allocate arrays of Sequences used to map inputs to outputs
@@ -14,12 +11,14 @@ S_function::S_function(const int sboxes[8][4][16]) {
     }
 }
 
+
 S_function::~S_function() {
     for (auto i = 0; i < 8; ++i) {
         delete m_sboxes[i];
     }
     delete[] m_sboxes;
 }
+
 
 Sequence S_function::operator()(Sequence &seq) {
     std::vector<Sequence> seqs(8);

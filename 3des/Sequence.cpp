@@ -1,11 +1,8 @@
-//
-// Created by theophile on 03/27/2021.
-//
-
 #include "Sequence.h"
 #include <algorithm>
 #include <iostream>
 #include <random>
+
 
 Sequence::Sequence(int t_size) {
     m_bits = std::deque<int>(t_size);

@@ -1,10 +1,5 @@
-//
-// Created by theophile on 06/05/2021.
-//
-
 #include "F.h"
 #include "Permutation.h"
-#include <iostream>
 
 template<int N>
 inline SequenceD<N> toSequenceD(Sequence &seq) {

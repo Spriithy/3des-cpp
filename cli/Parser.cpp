@@ -1,7 +1,3 @@
-//
-// Created by theophile on 03/27/2021.
-//
-
 #include "Parser.h"
 #include <iostream>
 
@@ -9,7 +5,7 @@ std::map<std::string, Flag> Parser::m_flag_map = {
         {"--key-gen", KEY_GEN},
         {"-c", CYPHER},
         {"-d", DECYPHER},
-        {"-o", OUTPUT_FILE},
+        {"-O", OUTPUT_FILE},
         {"-i", INPUT_KEY},
         {"-h", HELP},
         {"--help", HELP},

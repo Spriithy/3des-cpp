@@ -1,7 +1,3 @@
-//
-// Created by theophile on 06/06/2021.
-//
-
 #ifndef INC_3DES_CPP_DES_H
 #define INC_3DES_CPP_DES_H
 

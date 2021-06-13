@@ -1,11 +1,8 @@
-//
-// Created by theophile on 06/05/2021.
-//
-
 #ifndef INC_3DES_CPP_SBOX_H
 #define INC_3DES_CPP_SBOX_H
 
 #include "Sequence.h"
+
 
 const int SBOX_MATRICES[8][4][16] = {
         {

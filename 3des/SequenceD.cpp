@@ -1,7 +1,3 @@
-//
-// Created by theophile on 04/25/2021.
-//
-
 #include "SequenceD.h"
 
 Sequence read_seq_from_chars(std::istream &in, int n) {

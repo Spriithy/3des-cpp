@@ -1,12 +1,9 @@
-//
-// Created by theophile on 04/25/2021.
-//
-
 #ifndef INC_3DES_CPP_KEYGEN_H
 #define INC_3DES_CPP_KEYGEN_H
 
 #include "SequenceD.h"
 #include <vector>
+
 
 // Permuted choice 1
 static const std::vector<int> PC1{
@@ -51,5 +48,9 @@ public:
     SequenceD<48> next();
 };
 
+
+std::pair<SequenceD<64>, SequenceD<64>> read3DESKeys(const std::string &keyFile);
+void write3DESKeys(const std::string &keyFile, SequenceD<64> &k1, SequenceD<64> &k2);
+void write3DESKeys(std::ostream &os, SequenceD<64> &k1, SequenceD<64> &k2);
 
 #endif//INC_3DES_CPP_KEYGEN_H

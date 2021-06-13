@@ -1,11 +1,8 @@
-//
-// Created by theophile on 06/05/2021.
-//
-
 #ifndef INC_3DES_CPP_S_FUNCTION_H
 #define INC_3DES_CPP_S_FUNCTION_H
 
 #include "Sbox.h"
+
 
 class S_function {
 private:

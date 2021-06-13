@@ -1,7 +1,3 @@
-//
-// Created by theophile on 06/06/2021.
-//
-
 #include "DES.h"
 #include "Permutation.h"
 
