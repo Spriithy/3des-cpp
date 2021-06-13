@@ -10,20 +10,20 @@
 
 class DES {
 private:
-    F m_f;
+    SequenceD<64> m_key;
 
 public:
-    explicit DES(SequenceD<64> &key) : m_f(key){};
+    explicit DES(SequenceD<64> &key) : m_key(key){};
     SequenceD<64> operator()(SequenceD<64> seq);
 };
 
 
 class DESinv {
 private:
-    Finv m_finv;
+    SequenceD<64> m_key;
 
 public:
-    explicit DESinv(SequenceD<64> &key) : m_finv(key){};
+    explicit DESinv(SequenceD<64> &key) : m_key(key){};
     SequenceD<64> operator()(SequenceD<64> seq);
 };
 

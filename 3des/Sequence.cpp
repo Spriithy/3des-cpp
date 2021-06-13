@@ -22,9 +22,9 @@ Sequence::Sequence(int t_size) {
     std::ranges::generate(m_bits, rand_between(0, 1));
 }
 
-Sequence::Sequence(const std::list<Sequence> &t_seq) {
+Sequence::Sequence(const std::list<Sequence> &seqs) {
     m_bits = std::deque<int>(0);
-    for (auto seq : t_seq) {
+    for (auto seq : seqs) {
         m_bits.insert(std::end(m_bits), std::begin(seq.m_bits), std::end(seq.m_bits));
     }
 }
@@ -42,10 +42,10 @@ int Sequence::size() {
 }
 
 void Sequence::shift(int n) {
-    for (auto i = 0; i < n; i++) {
-        auto front = m_bits.front();
-        m_bits.pop_front();
-        m_bits.push_back(front);
+    for (auto i = 0; i < n; ++i) {
+        auto back = m_bits.back();
+        m_bits.pop_back();
+        m_bits.push_front(back);
     }
 }
 
@@ -65,7 +65,7 @@ uint64_t Sequence::to_bits() {
     return bits;
 }
 
-Sequence Sequence::operator*(Sequence &t_seq) {
+Sequence Sequence::operator*(Sequence t_seq) {
     Sequence res(size());
     if (size() != t_seq.size()) {
         return res;
@@ -76,10 +76,10 @@ Sequence Sequence::operator*(Sequence &t_seq) {
     return res;
 }
 
-Sequence Sequence::permutation(std::vector<int> &t_permutor) {
-    Sequence perm(t_permutor.size());
-    for (auto i = 0; i < t_permutor.size(); ++i) {
-        perm[i] = m_bits[t_permutor[i]];
+Sequence Sequence::permutation(const std::vector<int> &permutation) {
+    Sequence perm(permutation.size());
+    for (auto i = 0; i < permutation.size(); ++i) {
+        perm[i] = m_bits[permutation[i] - 1];
     }
     return perm;
 }

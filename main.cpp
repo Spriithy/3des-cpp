@@ -1,5 +1,6 @@
 #include "3des/DES.h"
 #include "3des/KeyGen.h"
+#include "3des/Permutation.h"
 #include "3des/S_function.h"
 #include "3des/Sbox.h"
 #include "3des/Sequence.h"
@@ -44,16 +45,25 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    SequenceD<64> key{};
-    std::cout << "  Original key: " << key.as_bit_string() << std::endl;
+    Sequence l(32), r(32);
+    l = 0b10001111000011110000111100001111;
+    r = 0b11110000111100001111000011111000;
+
+    SequenceD<64> key{l, r};
+
+    SequenceD<64> text;
+    std::cin >> text;
+
+    std::cout << "   Original key: " << key << std::endl;
+    std::cout << "  Original text: " << text << std::endl;
 
     DES des(key);
-    auto desKey = des(key);
-    std::cout << "  Cyphered key: " << desKey.as_bit_string() << std::endl;
+    auto desText = des(text);
+    std::cout << "  Cyphered text: " << desText << std::endl;
 
     DESinv desInv(key);
-    auto desInvKey = desInv(desKey);
-    std::cout << "Decyphered key: " << desInvKey.as_bit_string() << std::endl;
+    auto desInvText = desInv(desText);
+    std::cout << "Decyphered text: " << desInvText << std::endl;
 
     switch (options.command) {
         case HELP:

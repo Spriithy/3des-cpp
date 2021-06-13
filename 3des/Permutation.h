@@ -59,12 +59,12 @@ static const std::vector<int> PERMUTATION_FUNCTION{
 template<int I, int O>
 class Permutation {
 public:
-    SequenceD<O> operator()(SequenceD<I> &seq, const std::vector<int> &indices) {
-        SequenceD<O> new_seq{};
-        for (auto i = 0; i < O; ++i) {
-            new_seq[i] = seq[indices[i] - 1];
+    SequenceD<O> operator()(SequenceD<I> &seq, const std::vector<int> &permut) {
+        SequenceD<O> s;
+        for (unsigned int i = 0; i < O; ++i) {
+            s[i] = seq(permut[i] - 1);
         }
-        return new_seq;
+        return s;
     }
 };
 

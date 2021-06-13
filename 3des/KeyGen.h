@@ -11,13 +11,13 @@
 // Permuted choice 1
 static const std::vector<int> PC1{
         // clang-format off
-        59, 49, 41, 33, 25, 17, 9,
+        57, 49, 41, 33, 25, 17, 9,
         1, 58, 50, 42, 34, 26, 18,
         10, 2, 59, 51, 43, 35, 27,
         19, 11, 3, 60, 52, 44, 36,
         63, 55, 47, 39, 31, 23, 15,
         7, 62, 54, 46, 38, 30, 22,
-        14, 6, 61, 53, 25, 37, 29,
+        14, 6, 61, 53, 45, 37, 29,
         21, 13, 5, 28, 20, 12, 4,
         // clang-format on
 };
@@ -43,6 +43,7 @@ static const std::vector<int> SCHEDULED_LEFT_SHIFTS{
 
 class KeyGen {
 protected:
+    int m_round;
     SequenceD<56> m_rolling;
 
 public:

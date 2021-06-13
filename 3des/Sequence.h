@@ -17,15 +17,15 @@ private:
 
 public:
     explicit Sequence(int t_size = 4);
-    explicit Sequence(const std::list<Sequence> &t_seq);
+    explicit Sequence(const std::list<Sequence> &seqs);
     int operator()(int i) const;
-    virtual int &operator[](int i);
+    int &operator[](int i);
     Sequence &operator=(uint64_t seq);
-    Sequence operator*(Sequence &t_seq);
+    Sequence operator*(Sequence t_seq);
     uint64_t to_bits();
     int size();
     virtual void shift(int n);
-    Sequence permutation(std::vector<int> &t_permutor);
+    Sequence permutation(const std::vector<int> &permutation);
     Sequence subsequence(int begin, int end);
 
     std::string as_char_string();

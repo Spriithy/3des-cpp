@@ -21,10 +21,10 @@ public:
     Sequence &left() { return *this; }
     Sequence &right() { return m_other; }
 
-    int &operator[](int i) override { return i < N / 2 ? right()[i] : left()[i - N / 2]; }
-    int operator()(int i) { return i < N / 2 ? right()(i) : left()(i - N / 2); }
+    int &operator[](int i) { return (i < (N / 2)) ? m_other[i] : Sequence::operator[](i - (N / 2)); }
+    int operator()(int i) const { return (i < (N / 2)) ? m_other(i) : Sequence::operator()(i - (N / 2)); }
 
-    void shift(int n) {
+    void shift(int n) override {
         Sequence::shift(n);
         right().shift(n);
     }
@@ -59,7 +59,7 @@ template<class seqType>
 void print(seqType &t_seq) {
     auto n = t_seq.size();
     for (auto i = 0; i < n; ++i) {
-        std::cout << t_seq(n - i - 1) ? '1' : '0';
+        std::cout << t_seq(i);
     }
     std::cout << std::endl;
 }

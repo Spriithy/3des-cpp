@@ -22,6 +22,7 @@ public:
 
 class Finv {
 private:
+    int m_round;
     KeyGen m_keyGen;
     S_function m_sFunction;
     std::vector<SequenceD<48>> m_keys;
