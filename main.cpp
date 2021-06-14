@@ -95,7 +95,6 @@ int main(int argc, char *argv[]) {
             auto [k1, k2] = read3DESKeys(options.keyFile);
             Decrypt decrypt(k1, k2);
             if (options.outputFile.empty()) {
-                std::cout << std::ios::binary;
                 decrypt(options.inputFile, std::cout);
             } else {
                 decrypt(options.inputFile, options.outputFile);

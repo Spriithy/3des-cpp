@@ -16,7 +16,7 @@ void Crypt::operator()(const std::string &inputPath, std::ostream &os) {
     is >> std::noskipws;
 
     auto size = is.tellg();
-    char deadChars = 8 - (char) (size % 8);
+    char deadChars = 8 - (size % 8 == 0 ? 8 : size % 8);
     os << deadChars;
     is.seekg(0, std::ios::beg);
 
