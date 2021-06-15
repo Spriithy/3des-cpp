@@ -1,12 +1,6 @@
 #include "F.h"
 #include "Permutation.h"
 
-template<int N>
-inline SequenceD<N> toSequenceD(Sequence &seq) {
-    auto l = seq.subsequence(N / 2, N);
-    auto r = seq.subsequence(0, N / 2);
-    return SequenceD<N>{l, r};
-}
 
 template<int N>
 inline Sequence toSequence(SequenceD<N> &seq) {
@@ -35,6 +29,7 @@ Finv::Finv(SequenceD<64> &key) : m_round(0), m_keyGen(key), m_sFunction(SBOX_MAT
 
 Sequence Finv::operator()(Sequence &seq) {
     auto expansion = seq.permutation(EXPANSION_PERMUTATION);
+    // use the indexed intermediate key
     auto key = m_keys[m_round++];
     auto tmp = expansion * toSequence(key);
     auto sbox = m_sFunction(tmp);

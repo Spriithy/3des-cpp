@@ -3,14 +3,17 @@
 
 SequenceD<64> DES::operator()(SequenceD<64> seq) {
     F f(m_key);
+    // Initial permutation
     auto tmp = Permutation<64, 64>{}(seq, INITIAL_PERMUTATION);
 
+    // For each round, compute the intermediate sequence
     for (auto i = 0; i < 16; ++i) {
         auto tmpSeq = f(tmp.right());
         auto xorSeq = tmp.left() * tmpSeq;
         tmp = SequenceD<64>{tmp.right(), xorSeq};
     }
 
+    // Final byte swao and permutation
     auto swapSeq = SequenceD<64>{tmp.right(), tmp.left()};
     return Permutation<64, 64>{}(swapSeq, INITIAL_PERMUTATION_REVERSE);
 }

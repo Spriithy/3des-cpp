@@ -23,6 +23,7 @@ Sbox::~Sbox() {
 }
 
 Sequence Sbox::operator()(const Sequence &seq) {
+    // Compute the indices
     auto x = seq(0) | (seq(5) << 1);
     auto y = seq(1) | (seq(2) << 1) | (seq(3) << 2) | (seq(4) << 3);
     return m_tab[x][y];
